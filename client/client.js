@@ -1,6 +1,6 @@
 
 var myApp = angular.module('myApp',[]);
-
+var socket = io();
 
 myApp.controller('mainController', function($scope, $http, $window) {
     
