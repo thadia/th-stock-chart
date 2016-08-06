@@ -10,7 +10,6 @@ app.use(require('body-parser').urlencoded({ extended: true }));
 app.use(require('express-session')({ secret: 'keyboard cat', resave: true, saveUninitialized: true }));
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
-
 var path = require('path');
 var mongoose = require('mongoose');
 var Promise = require('es6-promise').Promise;

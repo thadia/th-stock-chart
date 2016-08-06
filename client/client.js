@@ -1,102 +1,98 @@
 
 var myApp = angular.module('myApp',[]);
-var socket = io();
+//var socket = io();
 
 myApp.controller('mainController', function($scope, $http, $window) {
     
-     $.getJSON('http://ipinfo.io', function(data){
-            $scope.getUsername();
-            $scope.city = data.city;
-            console.log("CITY " + $scope.city);
-            $http.get("/search/bar/"+ $scope.city)
-                .then(function (response) {
-                 $scope.allBars=response.data;
-        });  
+    
         
-     })
+    var seriesOptions = [],
+        seriesCounter = 0,
+        names = ['MSFT', 'AAPL', 'GOOG'];
+
+    /**
+     * Create the chart when all data is loaded
+     * @returns {undefined}
+     */
+    function createChart() {
+
+        $('#container').highcharts('StockChart', {
+
+            rangeSelector: {
+                selected: 4
+            },
+
+            yAxis: {
+                labels: {
+                    formatter: function () {
+                        return (this.value > 0 ? ' + ' : '') + this.value + '%';
+                    }
+                },
+                plotLines: [{
+                    value: 0,
+                    width: 2,
+                    color: 'silver'
+                }]
+            },
+
+            plotOptions: {
+                series: {
+                    compare: 'percent'
+                }
+            },
+
+            tooltip: {
+                pointFormat: '<span style="color:{series.color}">{series.name}</span>: <b>{point.y}</b> ({point.change}%)<br/>',
+                valueDecimals: 2
+            },
+
+            series: seriesOptions
+        });
+    }
+
+    $.each(names, function (i, name) {
+
+        $.getJSON('https://www.highcharts.com/samples/data/jsonp.php?filename=' + name.toLowerCase() + '-c.json&callback=?',    function (data) {
+
+            seriesOptions[i] = {
+                name: name,
+                data: data
+            };
+
+            // As we're loading the data asynchronously, we don't know what order it will arrive. So
+            // we keep a counter and create the chart when all the data is loaded.
+            seriesCounter += 1;
+
+            if (seriesCounter === names.length) {
+                createChart();
+            }
+        });
+    });
      
-     $http.get("/bars/all")
-            .then(function (response) {
-            $scope.bars_db = response.data;
-     });
-        
-     $scope.getUsername = function(){
-         $http.get("/username")
-            .then(function (response) {
-         if(response)      
-         $scope.userdata = response.data;
-         else $scope.userdata=null;
-         });
-     } 
+    
+    
+    
     
      $scope.getPeopleList = function(barName){
         
-        for (var i=0;i< $scope.bars_db.length;i++){
-            if($scope.bars_db[i].bar_name == barName)
-                return $scope.bars_db[i].going_list;
-        } 
-        return [];
+         
           
      } 
      
     
      $scope.searchMyLocation = function(){
                 
-        $http.get("/search/bar/"+ $scope.city)
-        .then(function (response) {
-             $scope.allBars=response.data;
-        }); 
-         
+        
      }
      
      $scope.getAll = function(){
-          $http.get("/bars/all")
-            .then(function (response) {
-            $scope.bars_db = response.data;
-        });
+           
         
      }
          
-     $scope.logout = function() {
-        $http.get("/logout")
-        .then(function (response) {
-             $scope.userdata = null;
-             $scope.getAll();
-             $window.location.href = '/home';
-        }); 
-    }; 
+      
      
-     $scope.going = function(barName, userName) {
- 
-         $scope.barName = barName;
-         $scope.userName = userName;
-         // $scope.user = "guest";
-         $scope.string_API = "/addme/"+ $scope.barName +"/" +$scope.userName;
-         console.log("Going Call to Server: "+ $scope.string_API);
-    
-         $http.get($scope.string_API)  //string 
-        .then(function (response) {
-             $scope.getAll();
-             
-             //$window.location.href = '/home';
-        }); 
-    };
-    
-     $scope.not_going = function(barName, userName) {
- 
-         $scope.barName = barName;
-         $scope.userName = userName;
-         // $scope.user = "guest";
-         $scope.string_API = "/removeme/"+ $scope.barName +"/" +$scope.userName;
-         console.log("Going Call to Server: "+ $scope.string_API);
-    
-         $http.get($scope.string_API)  //string 
-        .then(function (response) {
-             $scope.getAll();
-             
-             //$window.location.href = '/home';
-        }); 
-    };
+     
       
     
 }); 
@@ -111,8 +107,6 @@ myApp.controller('mainController', function($scope, $http, $window) {
 
 
 
- 
-   
  
 
 
