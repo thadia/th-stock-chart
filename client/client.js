@@ -58,6 +58,8 @@ myApp.controller('mainController', function($scope, $http, $window) {
                 name: name,
                 data: data
             };
+            
+            console.log(data + " Data format.");
 
             // As we're loading the data asynchronously, we don't know what order it will arrive. So
             // we keep a counter and create the chart when all the data is loaded.
