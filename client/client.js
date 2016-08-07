@@ -54,7 +54,7 @@ myApp.controller('mainController', function($scope, $http, $window) {
         //   https://www.quandl.com/api/v3/datasets/WIKI/AAPL.json?order=asc&column_index=4&collapse=daily&transformation=rdiff
        
        
-        $.getJSON('https://www.quandl.com/api/v3/datasets/WIKI/'+name+'.json?order=asc&column_index=4&collapse=daily&transformation=rdiffMMk5vnfEYNykynsDCYXy', function (data) {
+        $.getJSON('https://www.quandl.com/api/v3/datasets/WIKI/'+name+'.json?order=asc&column_index=4&collapse=daily&transformation=rdiff&api_key=MMk5vnfEYNykynsDCYXy', function (data) {
             
             seriesOptions[i] = {
                 name: name,
