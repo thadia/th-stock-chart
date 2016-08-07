@@ -68,9 +68,11 @@ myApp.controller('mainController', function($scope, $http, $window) {
             // we keep a counter and create the chart when all the data is loaded.
             seriesCounter += 1;
 
+
             if (seriesCounter === names.length) {
+                                            console.log(JSON.parse(seriesOptions[0]) + " Data format 2.");
+
                 createChart();
-                            console.log(JSON.parse(seriesOptions[0]) + " Data format 2.");
 
             }
         });
