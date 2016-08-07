@@ -61,7 +61,7 @@ myApp.controller('mainController', function($scope, $http, $window) {
                 data: data.data
             };
             
-            console.log(data.data + " Data format.");
+      //      console.log(data.data + " Data format.");
 
             // https://www.highcharts.com/samples/data/jsonp.php?filename=msft-c.json&callback=jQuery31006323779385139796_1470527146017&_=1470527146018
 

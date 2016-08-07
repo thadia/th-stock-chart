@@ -21,6 +21,8 @@ var Schema = mongoose.Schema
 // https://www.quandl.com/api/v3/datasets/WIKI/FB/data.json
 // http://socket.io/get-started/chat/
 
+// https://www.quandl.com/api/v3/datasets/WIKI/AAPL.json?order=asc&column_index=4&collapse=daily&transformation=rdiff
+
 io.on('connection', function(socket){
   console.log('a user connected');
   socket.on('disconnect', function(){
@@ -36,7 +38,6 @@ app.listen(port, function(){
   });
  
 app.get('/find/:stockanme', function(req, res) {
-  
   
 });
 
