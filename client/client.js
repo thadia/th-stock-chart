@@ -58,7 +58,7 @@ myApp.controller('mainController', function($scope, $http, $window) {
             
             seriesOptions[i] = {
                 name: name,
-                data: data.dataset.data
+                data: data.dataset.data.toString()
             };
             
       //      console.log(data.data + " Data format.");
