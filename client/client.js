@@ -61,6 +61,8 @@ myApp.controller('mainController', function($scope, $http, $window) {
             };
             
             console.log(data.dataset.data + " Data format.");
+            console.log(seriesOptions[0] + " Data format 2.");
+
             // https://www.highcharts.com/samples/data/jsonp.php?filename=msft-c.json&callback=jQuery31006323779385139796_1470527146017&_=1470527146018
 
             // As we're loading the data asynchronously, we don't know what order it will arrive. So
