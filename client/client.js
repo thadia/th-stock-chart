@@ -71,8 +71,7 @@ myApp.controller('mainController', function($scope, $http, $window) {
 
 
             if (seriesCounter === names.length) {
-               console.log(JSON.parse(seriesOptions[0]) + " Data format 2.");
-
+             
                 createChart();
 
             }
