@@ -13,7 +13,15 @@
 <body ng-app="myApp">
     <div class="container container-fluid" ng-controller="mainController" >
        
-    <div id="container" style="height: 400px; min-width: 310px"></div>
+    <div id="container" style="height: 400px; min-width: 310px">
+    <form class="form-inline" role="form">
+    <div class="form-group">
+      <label for="email">Stock Symbol:</label>
+      <input type="email" class="form-control" id="email" placeholder="Enter symbol">
+    </div>   
+    <button type="submit" class="btn btn-default">Add</button>
+  </form>
+    </div>
     
     
     </div>
