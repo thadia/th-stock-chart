@@ -56,8 +56,8 @@ myApp.controller('mainController', function($scope, $http, $window) {
        
         $.getJSON('https://www.quandl.com/api/v3/datasets/WIKI/'+name+'.json?order=asc&column_index=4&collapse=daily&transformation=none&api_key=MMk5vnfEYNykynsDCYXy&start_date=2014-01-01', function (data) {
             
-            for(var i=0;i<data.dataset.data.length;i++){
-                data.dataset.data[i][0]=Date.parse(data.dataset.data[i][0]);
+            for(var j=0;j<data.dataset.data.length;j++){
+                data.dataset.data[j][0]=Date.parse(data.dataset.data[j][0]);
             }
             
             seriesOptions[i] = {
