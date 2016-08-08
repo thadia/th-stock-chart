@@ -21,6 +21,12 @@ myApp.controller('mainController', function($scope, $http, $window) {
             rangeSelector: {
                 selected: 4
             },
+            
+            title: {
+                text: 'STOCKS'
+            },
+
+            
 
             yAxis: {
                 labels: {
