@@ -11,6 +11,14 @@ body{
   display: none !important;
 }
 
+#tag-cloud{
+  padding-left:0px; 
+} 
+
+#container{
+  padding-top:5%;
+}  
+
 .header_main {
   color:#1ab7ea;
   font-weight: bold;
@@ -35,7 +43,7 @@ body{
   border-radius: 10px;
   white-space: normal;
   width: inherit;
-   background-color: #f5f5f5;
+  background-color: #f5f5f5;
 
 }
 

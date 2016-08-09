@@ -91,30 +91,18 @@ myApp.controller('mainController', function($scope, $http, $window) {
     });
      
     
-    
-    
-    
      $scope.getPeopleList = function(barName){
-        
-         
           
      } 
-     
     
      $scope.searchMyLocation = function(){
-                
         
      }
      
      $scope.getAll = function(){
            
-        
      }
          
-      
-     
-     
-      
     
 }); 
 
