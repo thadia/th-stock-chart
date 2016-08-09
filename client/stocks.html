@@ -4,7 +4,10 @@
 <head>
 
      <meta charset="UTF-8">
-     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+  <!--   <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet"> -->
+     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha/css/bootstrap.min.css">
+     <link rel="stylesheet" href="/bower_components/font-awesome/css/font-awesome.min.css">
+     <link href="/client/css/bootstrap-tag-cloud.css" rel="stylesheet">
      <link rel="stylesheet" href="/client/file.css">
      <title>Stock Market Charts</title>
 
@@ -12,25 +15,23 @@
 
 <body ng-app="myApp">
     <div class="container container-fluid" ng-controller="mainController" >
-       
-    <div id="container" style="height: 400px; min-width: 310px">
+    <div id="container" style="height: 400px; min-width: 310px">    </div>
     
-    </div>
-    <form class="form-inline" role="form">
-    <div class="form-group">
-      <label for="email">Stock Symbol:</label>
-      <input type="email" class="form-control" id="email" placeholder="Enter symbol">
-    </div>   
-    <button type="submit" class="btn btn-default">Add</button>
-  </form>
+             <div id="tag-info" class="input-append">
+                  <input type="text">
+                  <button class="btn" type="button">Add <i class="icon-plus"></i></button>
+             </div>
+             <ul id="tag-cloud"></ul>
     
     </div>
 </body>
 
     <script src="/bower_components/jquery/dist/jquery.min.js"></script>
     <script src="/bower_components/angular/angular.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha/js/bootstrap.min.js"></script>
     <script src="/bower_components/highcharts/highstock.js"></script>
     <script src="/bower_components/highcharts/modules/exporting.js"></script>
+    <script src="/client/js/bootstrap-tag-cloud.js"></script>
     <script src="/client/client.js"></script>
     
 </html>
