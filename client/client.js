@@ -4,12 +4,12 @@ var myApp = angular.module('myApp',[]);
 
 myApp.controller('mainController', function($scope, $http, $window) {
     // var  name_list=[];
-     $scope.getAll = function(){
-         $http.get("/stocks/mylist/all/names")
-            .then(function (response) {
-            $scope.name_list = response.data;
-         });
-     }
+    
+      $http.get("/stocks/mylist/all/names")
+        .then(function (response) {
+        $scope.name_list = response.data;
+     });
+     
    
     var seriesOptions = [],
         seriesCounter = 0,
