@@ -86,7 +86,7 @@ myApp.controller('mainController', function($scope, $http, $window,names_list) {
          $http.get("/add/mylist/"+ stock_name)
             .then(function (response) {
                    var chart = $('#container').highcharts();
-                   if (chart.series.length === 1) {
+                   if (chart.series.length >= 0) {
                        
                        var start_date=new Date();
                        start_date.setFullYear(start_date.getFullYear() - 1);
