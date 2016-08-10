@@ -21,7 +21,9 @@
                   <input id="stock_input" type="text" placeholder="Enter stock symbol" >
                   <button id="addsymbol" class="btn btn-success btn-sm" type="button">Add <i class="fa fa-plus"></i></button>
              </div>
-             <ul id="tag-cloud"></ul>
+             <ul id="tag-cloud">
+                 <li class="tag-cloud tag-cloud-info" ng-repeat="stock in name_list" ng-cloak>{{stock}}</li>
+             </ul>
     
     </div>
 </body>
