@@ -21,7 +21,14 @@ var Schema = mongoose.Schema
 // https://www.quandl.com/api/v3/datasets/WIKI/FB/data.json
 // http://socket.io/get-started/chat/
 
-// https://www.quandl.com/api/v3/datasets/WIKI/AAPL.json?order=asc&column_index=4&collapse=daily&transformation=rdiff
+
+var StocksSchema = new Schema({
+    stock_symbol : { type: String, required: true, trim: true }
+});
+
+var Stock = mongoose.model('Stock',StocksSchema);
+
+mongoose.connect('mongodb://stocks_user:db_user_stocks@ds153735.mlab.com:53735/current_stocks_db');
 
 io.on('connection', function(socket){
   console.log('a user connected');
@@ -42,6 +49,8 @@ app.get('/find/:stockanme', function(req, res) {
 });
 
 
+
+
 app.get('/', function(req, res) {
         var fileName = path.join(__dirname, '/client/stocks.html');
         res.sendFile(fileName, function (err) {
@@ -56,8 +65,70 @@ app.get('/', function(req, res) {
 }); 
 
 
-app.get('/stockdata/all', function(req, res) {
- 
+app.get('/add/:stockname', function(req, res) {
+  
+      Stock.findOne({ stock_symbol: req.params.stockname.toUpperCase()}, function(err, stock){ 
+               if(stock){   
+                 console.log(stock + " Already in the database.");
+               }   
+               else{
+                   console.log("Adding to the database.");
+                   var newStock = new Stock ( {
+                       stock_symbol: req.params.stockname.toUpperCase()
+                   });
+                                                 
+                   newStock.save( function(error, data){
+                       if(error){
+                          console.log(error);
+                       }
+                       else{
+                          res.send(newStock); 
+                          console.log(newStock +  " data is saved.");
+                       }
+                    });
+               } 
+              
+               if (err) { console.log('error on save_update');}
+                 
+});
+  
+});
+
+
+app.get('/remove/:stockname', function(req, res) {
+  
+      Stock.findOne({ stock_symbol: req.params.stockname.toUpperCase()}, function(err, stock){ 
+               if(stock){   
+                 console.log(stock + " Already found. Ready to remove.");
+                 Stock.remove({stock_symbol: req.params.stockname.toUpperCase() }, function(err) {
+                 if (!err) {
+                    console.log('Notification removing!');
+                    }
+                    else {
+                    console.log('Error on removing');
+                    }
+                 });  
+                    res.redirect('/');      
+               }   
+               else{
+                   console.log("Not found in the database.");
+               } 
+              
+               if (err) { console.log('error on save_update');}
+                 
+});
+  
+});
+
+app.get('/stocks/all', function(req, res) {
+  
+      Stock.find({}, '-_id',{},function(err, latest_data) {
+        if (err) return console.error(err);
+        else{
+          //console.log("latest_data " + latest_data);
+          res.json(latest_data);
+        }
+});
 
 });
 
