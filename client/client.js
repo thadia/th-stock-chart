@@ -3,25 +3,17 @@ var myApp = angular.module('myApp',[]);
 //var socket = io();
 
 myApp.controller('mainController', function($scope, $http, $window) {
-     var  name_list=[];
+    // var  name_list=[];
      $scope.getAll = function(){
-       
-         $http.get("/stocks/all")
+         $http.get("/stocks/mylist/all/names")
             .then(function (response) {
-            $scope.stocks = response.data;
-                 for(var i=0;i<$scope.stocks.length;i++){
-                      name_list.push($scope.stocks.stock_symbol);        
-                 }
-            
+            $scope.name_list = response.data;
          });
-           
      }
-      
-    
    
     var seriesOptions = [],
         seriesCounter = 0,
-        names = name_list; 
+        names =  $scope.name_list;
     /**
      * Create the chart when all data is loaded
      * @returns {undefined}
@@ -97,14 +89,9 @@ myApp.controller('mainController', function($scope, $http, $window) {
   
      
      $scope.getAll = function(){
-         name_list.length=0;
-         $http.get("/stocks/all")
+         $http.get("/stocks/mylist/all/names")
             .then(function (response) {
-            $scope.stocks = response.data;
-                 for(var i=0;i<$scope.stocks.length;i++){
-                     name_list.push($scope.stocks.stock_symbol);        
-                 }
-            
+            $scope.name_list = response.data;
          });
            
      }
