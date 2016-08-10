@@ -94,12 +94,9 @@ app.get('/add/:mylist/:stockname', function(req, res) {
           console.log("Found table: " + req.params.mylist.toUpperCase());
           console.log("Searching for "+ req.params.stockname.toUpperCase());
           console.log(latest_data + " object found " +  latest_data[0].stock_names);
-          //res.json(latest_data[0].stock_names);
           if(latest_data[0].stock_names.lastIndexOf(req.params.stockname.toUpperCase()) == -1){
                console.log("Adding " +req.params.stockname.toUpperCase()+ " to " +req.params.mylist.toUpperCase());
                latest_data[0].stock_names.push(req.params.stockname.toUpperCase());
-               //latest_data.markModified('[0].stock_names');
-                
                latest_data[0].save( function(error, latest_data){
                        if(error){
                           console.log(error);
@@ -108,23 +105,44 @@ app.get('/add/:mylist/:stockname', function(req, res) {
                           res.send(latest_data); 
                           console.log(req.params.mylist.toUpperCase() +  " data is saved.");
                        }
-          });       
-          
+                });       
           }
-                               
           else {
             console.log("Already existing: " +req.params.stockname.toUpperCase()+ " in " +req.params.mylist.toUpperCase());
             res.send(latest_data);   
           }
-        
         }
-        
-          
-          
-                    
      });
- 
+});
+
+
+app.get('/remove/:mylist/:stockname', function(req, res) {
   
+      Stock.find({stock_table: req.params.mylist.toUpperCase()},  {},function(err, latest_data) {
+        if (err) return console.error(err);
+        else{
+          console.log("Found table: " + req.params.mylist.toUpperCase());
+          console.log("Searching for "+ req.params.stockname.toUpperCase());
+          console.log(latest_data + " object found " +  latest_data[0].stock_names);
+          if(latest_data[0].stock_names.lastIndexOf(req.params.stockname.toUpperCase()) != -1){
+               console.log("Removing " +req.params.stockname.toUpperCase()+ " to " +req.params.mylist.toUpperCase());
+               latest_data[0].stock_names.splice(latest_data[0].stock_names.indexOf(req.params.stockname.toUpperCase()),1);
+               latest_data[0].save( function(error, latest_data){
+                       if(error){
+                          console.log(error);
+                       }
+                       else{
+                          res.send(latest_data); 
+                          console.log(req.params.mylist.toUpperCase() +  " data is saved.");
+                       }
+                });       
+          }
+          else {
+            console.log("Not found: " +req.params.stockname.toUpperCase()+ " in " +req.params.mylist.toUpperCase());
+            res.send(latest_data);   
+          }
+        }
+     });
 });
 
   
