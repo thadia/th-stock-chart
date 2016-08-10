@@ -7,29 +7,16 @@ myApp.factory('names_list', function($http){
 });    
     
 myApp.controller('mainController', function($scope, $http, $window,names_list) {
-   
-    
         
     names_list.success(function(data) {
-    
        console.log(data + " Data");
-       
        var seriesOptions = [],
            seriesCounter = 0,
            names=data; 
-           
-        console.log(names +  "  NAMES1") ;    
+        console.log(names +  "  NAMES1") ; 
         
         
-        
-    });    
-    
-   
-    /**
-     * Create the chart when all data is loaded
-     * @returns {undefined}
-     */
-    function createChart() {
+           function createChart() {
 
         $('#container').highcharts('StockChart', {
 
@@ -97,6 +84,12 @@ myApp.controller('mainController', function($scope, $http, $window,names_list) {
         });
     });
      
+    });    
+    /**
+     * Create the chart when all data is loaded
+     * @returns {undefined}
+     */
+ 
   
      
      $scope.getAll = function(){
