@@ -23,8 +23,7 @@ var Schema = mongoose.Schema
 
 
 var StocksSchema = new Schema({
-    stock_table : { type: String, required: true, trim: true },
-    stock_names: { type: Array, required: false, trim: true}
+    stock_symbol : { type: String, required: true, trim: true }
 });
 
 var Stock = mongoose.model('Stock',StocksSchema);
@@ -60,86 +59,16 @@ app.get('/', function(req, res) {
 }); 
 
 
-
-app.get('/stocks/:mylist/all/names', function(req, res) {
+app.get('/add/:stockname', function(req, res) {
   
-      Stock.find({stock_table: req.params.mylist.toUpperCase()}, '-_id',{},function(err, latest_data) {
-        if (err) return console.error(err);
-        else{
-          //console.log("latest_data " + latest_data);
-          res.json(latest_data[0].stock_names);
-        }
-    });
-
-});
-
-
-app.get('/stocks/showall', function(req, res) {
-  
-      Stock.find({}, '-_id',{},function(err, latest_data) {
-        if (err) return console.error(err);
-        else{
-          //console.log("latest_data " + latest_data);
-          res.json(latest_data);
-        }
-    });
-
-});
-
-app.get('/add/:mylist/:stockname', function(req, res) {
-  
-      Stock.find({stock_table: req.params.mylist.toUpperCase()},  {},function(err, latest_data) {
-        if (err) return console.error(err);
-        else{
-          console.log("Found table: " + req.params.mylist.toUpperCase());
-          console.log("Searching for "+ req.params.stockname.toUpperCase());
-          console.log(latest_data + " object found " +  latest_data[0].stock_names);
-          //res.json(latest_data[0].stock_names);
-          if(latest_data[0].stock_names.lastIndexOf(req.params.stockname.toUpperCase()) == -1){
-               console.log("Adding " +req.params.stockname.toUpperCase()+ " to " +req.params.mylist.toUpperCase());
-               latest_data[0].stock_names.push(req.params.stockname.toUpperCase());
-               //latest_data.markModified('[0].stock_names');
-                
-               latest_data[0].save( function(error, latest_data){
-                       if(error){
-                          console.log(error);
-                       }
-                       else{
-                          res.send(latest_data); 
-                          console.log(req.params.mylist.toUpperCase() +  " data is saved.");
-                       }
-          });       
-          
-          }
-                               
-          else {
-            console.log("Already existing: " +req.params.stockname.toUpperCase()+ " in " +req.params.mylist.toUpperCase());
-            res.send(latest_data);   
-          }
-        
-        }
-        
-          
-          
-                    
-     });
- 
-  
-});
-
-  
-//DB admin only
-app.get('/add/:stockdatabase', function(req, res) {
-  
-      Stock.findOne({ stock_table: req.params.stockdatabase.toUpperCase()}, function(err, stock){ 
+      Stock.findOne({ stock_symbol: req.params.stockname.toUpperCase()}, function(err, stock){ 
                if(stock){   
                  console.log(stock + " Already in the database.");
                }   
                else{
                    console.log("Adding to the database.");
                    var newStock = new Stock ( {
-                       stock_table: req.params.stockdatabase.toUpperCase(),
-                       stock_names: []
+                       stock_symbol: req.params.stockname.toUpperCase()
                    });
                                                  
                    newStock.save( function(error, data){
@@ -158,13 +87,14 @@ app.get('/add/:stockdatabase', function(req, res) {
 });
   
 });
-//DB admin only
-app.get('/remove/:stockdatabase', function(req, res) {
+
+
+app.get('/remove/:stockname', function(req, res) {
   
-      Stock.findOne({ stock_table: req.params.stockdatabase.toUpperCase()}, function(err, stock){ 
+      Stock.findOne({ stock_symbol: req.params.stockname.toUpperCase()}, function(err, stock){ 
                if(stock){   
                  console.log(stock + " Already found. Ready to remove.");
-                 Stock.remove({stock_table: req.params.stockdatabase.toUpperCase() }, function(err) {
+                 Stock.remove({stock_symbol: req.params.stockname.toUpperCase() }, function(err) {
                  if (!err) {
                     console.log('Notification removing!');
                     }
@@ -182,4 +112,21 @@ app.get('/remove/:stockdatabase', function(req, res) {
                  
 });
   
-});  
+});
+
+app.get('/stocks/all', function(req, res) {
+  
+      Stock.find({}, '-_id',{},function(err, latest_data) {
+        if (err) return console.error(err);
+        else{
+          //console.log("latest_data " + latest_data);
+          res.json(latest_data);
+        }
+});
+
+});
+
+
+
+  
+  
