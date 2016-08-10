@@ -37,9 +37,6 @@ io.on('connection', function(socket){
   });
 }); 
 
-
- 
-
 app.listen(port, function(){ 
   console.log('Ready: ' + port);
   });
@@ -47,9 +44,6 @@ app.listen(port, function(){
 app.get('/find/:stockanme', function(req, res) {
   
 });
-
-
-
 
 app.get('/', function(req, res) {
         var fileName = path.join(__dirname, '/client/stocks.html');

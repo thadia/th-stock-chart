@@ -4,11 +4,12 @@ var myApp = angular.module('myApp',[]);
 
 myApp.controller('mainController', function($scope, $http, $window) {
     
-    
-        
     var seriesOptions = [],
         seriesCounter = 0,
-        names = ['MSFT', 'AAPL', 'GOOG'];
+        names =  [];
+    
+     for(var i=0;i<$scope.stocks.length;i++){
+        names.push($scope.stocks.stock_symbol);        
 
     /**
      * Create the chart when all data is loaded
@@ -25,8 +26,6 @@ myApp.controller('mainController', function($scope, $http, $window) {
             title: {
                 text: 'STOCKS'
             },
-
-            
 
             yAxis: {
                 labels: {
@@ -57,7 +56,6 @@ myApp.controller('mainController', function($scope, $http, $window) {
     }
 
     $.each(names, function (i, name) {
-        //   https://www.quandl.com/api/v3/datasets/WIKI/AAPL.json?order=asc&column_index=4&collapse=daily&transformation=rdiff
        //https://www.quandl.com/api/v3/datasets/WIKI/'+name+'.json?order=asc&column_index=4&collapse=daily&transformation=none&start_date=2014-01-01&api_key=MMk5vnfEYNykynsDCYXy
        var start_date=new Date();
        start_date.setFullYear(start_date.getFullYear() - 1);
@@ -73,17 +71,12 @@ myApp.controller('mainController', function($scope, $http, $window) {
                 data: data.dataset.data
             };
             
-      //      console.log(data.data + " Data format.");
-
+            // console.log(data.data + " Data format.");
             // https://www.highcharts.com/samples/data/jsonp.php?filename=msft-c.json&callback=jQuery31006323779385139796_1470527146017&_=1470527146018
-
             // As we're loading the data asynchronously, we don't know what order it will arrive. So
             // we keep a counter and create the chart when all the data is loaded.
             seriesCounter += 1;
-
-
             if (seriesCounter === names.length) {
-             
                 createChart();
 
             }
@@ -93,9 +86,24 @@ myApp.controller('mainController', function($scope, $http, $window) {
   
      
      $scope.getAll = function(){
+         
+         $http.get("/stocks/all")
+            .then(function (response) {
+            $scope.stocks = response.data;
+         });
            
      }
+      
+      
+     $scope.removeOne = function(stock_symbol){
          
+         $http.get("/remove/"+stock_symbol)
+            .then(function (response) {
+                 $scope.getAll(); //refresh my current_object
+         });
+        
+           
+     }    
     
 }); 
 
