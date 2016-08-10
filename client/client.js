@@ -14,21 +14,16 @@ myApp.controller('mainController', function($scope, $http, $window,names_list) {
        var seriesOptions = [],
            seriesCounter = 0,
            names=data; 
-        console.log(names +  "  NAMES1") ; 
         
-        
-           function createChart() {
+    function createChart() {
 
         $('#container').highcharts('StockChart', {
-
             rangeSelector: {
                 selected: 4
             },
-            
             title: {
                 text: 'STOCKS'
             },
-
             yAxis: {
                 labels: {
                     formatter: function () {
@@ -41,18 +36,15 @@ myApp.controller('mainController', function($scope, $http, $window,names_list) {
                     color: 'silver'
                 }]
             },
-
             plotOptions: {
                 series: {
                     compare: 'percent'
                 }
             },
-
             tooltip: {
                 pointFormat: '<span style="color:{series.color}">{series.name}</span>: <b>{point.y}</b> ({point.change}%)<br/>',
                 valueDecimals: 2
             },
-
             series: seriesOptions
         });
     }
@@ -67,13 +59,10 @@ myApp.controller('mainController', function($scope, $http, $window,names_list) {
             for(var j=0;j<data.dataset.data.length;j++){
                 data.dataset.data[j][0]=Date.parse(data.dataset.data[j][0]);
             }
-            
             seriesOptions[i] = {
                 name: name,
                 data: data.dataset.data
             };
-            
-            // console.log(data.data + " Data format.");
             // https://www.highcharts.com/samples/data/jsonp.php?filename=msft-c.json&callback=jQuery31006323779385139796_1470527146017&_=1470527146018
             // As we're loading the data asynchronously, we don't know what order it will arrive. So
             // we keep a counter and create the chart when all the data is loaded.
@@ -89,10 +78,35 @@ myApp.controller('mainController', function($scope, $http, $window,names_list) {
     /**
      * Create the chart when all data is loaded
      * @returns {undefined}
-     */
- 
-  
      
+     
+     */
+     
+     $scope.addStock = function(stock_name){
+         $http.get("/add/mylist/"+ stock_name)
+            .then(function (response) {
+                   var chart = $('#container').highcharts();
+                   if (chart.series.length === 1) {
+                       
+                       var start_date=new Date();
+                       start_date.setFullYear(start_date.getFullYear() - 1);
+                       $.getJSON('https://www.quandl.com/api/v3/datasets/WIKI/'+stock_name.toUpperCase()+'.json?order=asc&column_index=4&collapse=daily&transformation=none&api_key=MMk5vnfEYNykynsDCYXy&start_date='+start_date.toISOString().slice(0, 10),
+                                function (data) {
+                    
+                              for(var j=0;j<data.dataset.data.length;j++){
+                                    data.dataset.data[j][0]=Date.parse(data.dataset.data[j][0]);
+                              }
+                       
+                               chart.addSeries({
+                                    name: stock_name,
+                                    data: data.dataset.data
+                              });
+                        });
+                    }
+            });
+            
+      }         
+      
      $scope.getAll = function(){
          $http.get("/stocks/mylist/all/names")
             .then(function (response) {
@@ -100,8 +114,6 @@ myApp.controller('mainController', function($scope, $http, $window,names_list) {
          });
            
      }
-     
-   
       
      $scope.removeOne = function(stock_symbol){
          
@@ -109,10 +121,7 @@ myApp.controller('mainController', function($scope, $http, $window,names_list) {
             .then(function (response) {
                  $scope.getAll(); //refresh my current_object
          });
-        
-           
      }    
-    
 }); 
 
 
