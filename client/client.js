@@ -3,14 +3,25 @@ var myApp = angular.module('myApp',[]);
 //var socket = io();
 
 myApp.controller('mainController', function($scope, $http, $window) {
+     var  name_list=[];
+     $scope.getAll = function(){
+       
+         $http.get("/stocks/all")
+            .then(function (response) {
+            $scope.stocks = response.data;
+                 for(var i=0;i<$scope.stocks.length;i++){
+                      name_list.push($scope.stocks.stock_symbol);        
+                 }
+            
+         });
+           
+     }
+      
     
+   
     var seriesOptions = [],
         seriesCounter = 0,
-        names =  [];
-    
-     for(var i=0;i<$scope.stocks.length;i++){
-        names.push($scope.stocks.stock_symbol);        
-
+        names = name_list; 
     /**
      * Create the chart when all data is loaded
      * @returns {undefined}
@@ -61,7 +72,7 @@ myApp.controller('mainController', function($scope, $http, $window) {
        start_date.setFullYear(start_date.getFullYear() - 1);
     
         $.getJSON('https://www.quandl.com/api/v3/datasets/WIKI/'+name+'.json?order=asc&column_index=4&collapse=daily&transformation=none&api_key=MMk5vnfEYNykynsDCYXy&start_date='+start_date.toISOString().slice(0, 10), function (data) {
-            
+         console.log(name + " Reading from database;");   
             for(var j=0;j<data.dataset.data.length;j++){
                 data.dataset.data[j][0]=Date.parse(data.dataset.data[j][0]);
             }
@@ -86,10 +97,14 @@ myApp.controller('mainController', function($scope, $http, $window) {
   
      
      $scope.getAll = function(){
-         
+         name_list.length=0;
          $http.get("/stocks/all")
             .then(function (response) {
             $scope.stocks = response.data;
+                 for(var i=0;i<$scope.stocks.length;i++){
+                     name_list.push($scope.stocks.stock_symbol);        
+                 }
+            
          });
            
      }
