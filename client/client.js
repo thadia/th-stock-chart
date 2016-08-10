@@ -115,11 +115,15 @@ myApp.controller('mainController', function($scope, $http, $window,names_list) {
            
      }
       
-     $scope.removeOne = function(stock_symbol){
+     $scope.removeOne = function(stock_name){
          
-         $http.get("/remove/"+stock_symbol)
+         $http.get("/remove/mylist/"+ stock_name)
             .then(function (response) {
-                 $scope.getAll(); //refresh my current_object
+                var chart = $('#container').highcharts();
+                for(var i = chart.series.length - 1; i > -1; i--){  // to fix
+                    if(chart.series[i].name ==document.getElementById("series_name").value)
+                        chart.series[i].remove();
+                }
          });
      }    
 }); 
