@@ -9,6 +9,7 @@ myApp.factory('names_list', function($http){
 myApp.controller('mainController', function($scope, $http, $window,names_list) {
         
     names_list.success(function(data) {
+       $scope.name_list=data;    
        console.log(data + " Data");
        var seriesOptions = [],
            seriesCounter = 0,
