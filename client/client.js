@@ -116,14 +116,18 @@ myApp.controller('mainController', function($scope, $http, $window,names_list) {
      }
       
      $scope.removeOne = function(stock_name){
-         
+         console.log("REMOVING");
          $http.get("/remove/mylist/"+ stock_name)
             .then(function (response) {
                 var chart = $('#container').highcharts();
-                for(var i = chart.series.length - 1; i > -1; i--){  // to fix
-                    if(chart.series[i].name ==document.getElementById("series_name").value)
-                        chart.series[i].remove();
-                }
+                    if (chart.series.length) {
+                        for(var i=0;i<chart.series.length;i++){
+                            if(chart.series[i].name == stock_name){
+                                chart.series[i].remove();
+                                console.log(chart.series[i].name+ " was removed ");
+                            }
+                        }
+                    }
          });
      }    
 }); 
