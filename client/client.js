@@ -83,27 +83,43 @@ myApp.controller('mainController', function($scope, $http, $window,names_list) {
      */
      
      $scope.addStock = function(stock_name){
-         $http.get("/add/mylist/"+ stock_name)
+         //check if valid code
+         var url_check="https://www.quandl.com/api/v3/datasets/WIKI/"+stock_name+"/metadata.json?api_key=MMk5vnfEYNykynsDCYXy";
+         $.getJSON(url_check, function(data) {
+               
+               $http.get("/add/mylist/"+ stock_name)
             .then(function (response) {
                    var chart = $('#container').highcharts();
                    if (chart.series.length >= 0) {
                        
                        var start_date=new Date();
                        start_date.setFullYear(start_date.getFullYear() - 1);
-                       $.getJSON('https://www.quandl.com/api/v3/datasets/WIKI/'+stock_name.toUpperCase()+'.json?order=asc&column_index=4&collapse=daily&transformation=none&api_key=MMk5vnfEYNykynsDCYXy&start_date='+start_date.toISOString().slice(0, 10),
-                                function (data) {
-                    
-                              for(var j=0;j<data.dataset.data.length;j++){
-                                    data.dataset.data[j][0]=Date.parse(data.dataset.data[j][0]);
-                              }
-                       
-                               chart.addSeries({
-                                    name: stock_name,
-                                    data: data.dataset.data
-                              });
-                        });
+                       var url = 'https://www.quandl.com/api/v3/datasets/WIKI/'+stock_name.toUpperCase()+'.json?order=asc&column_index=4&collapse=daily&transformation=none&api_key=MMk5vnfEYNykynsDCYXy&start_date='+start_date.toISOString().slice(0, 10);
+                       $.getJSON(url, function (data)  {
+                              
+                            for(var j=0;j<data.dataset.data.length;j++){
+                                 data.dataset.data[j][0]=Date.parse(data.dataset.data[j][0]);
+                                 }
+                                   
+                                 chart.addSeries({
+                                        name: stock_name,
+                                        data: data.dataset.data
+                                 });
+                       });
                     }
             });
+            
+            }).fail(function(jqXHR) {
+                if (jqXHR.status == 404) {
+                    alert("You have submitted an incorrect Quandl code. Please check your Quandl codes and try again.");
+                } else {
+                    alert("Other non-handled error type");
+                }
+            }); 
+         
+         
+         
+         
             
       }         
       
