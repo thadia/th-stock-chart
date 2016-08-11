@@ -112,6 +112,7 @@ myApp.controller('mainController', function($scope, $http, $window,names_list) {
             }).fail(function(jqXHR) {
                 if (jqXHR.status == 404) {
                     alert("You have submitted an incorrect Quandl code. Please check your Quandl codes and try again.");
+                    $("li").html(stock_name).remove();
                 } else {
                     alert("Other non-handled error type");
                 }
