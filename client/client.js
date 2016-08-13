@@ -85,9 +85,9 @@ myApp.controller('mainController', function($scope, $http, $window,names_list) {
      $scope.addStock = function(stock_name){
          //check if valid code
        $scope.getAll2()
-       console.log($scope.name_list  +" LOG " +$scope.name_list_2);
+       console.log($scope.name_list  +" LOG ADD" +$scope.name_list_2);
         
-       if($scope.name_list_2.length === 0 || $scope.name_list_2.lastIndexOf(stock_name.toUpperCase()) != -1){
+       if(($scope.name_list_2.length === 0 || $scope.name_list_2.lastIndexOf(stock_name.toUpperCase()) != -1) && $scope.finished===true){
                  alert("You have submitted a duplicate code.");
                   $('li').filter(function() { return $.text([this]) === stock_name.toUpperCase(); }).remove();
                      
@@ -154,7 +154,7 @@ myApp.controller('mainController', function($scope, $http, $window,names_list) {
            
      }
      
-      $scope.getAll2 = function(){
+     $scope.getAll2 = function(){
          $http.get("/stocks/mylist/all/names")
             .then(function (response) {
             $scope.name_list_2 = response.data
@@ -164,6 +164,7 @@ myApp.controller('mainController', function($scope, $http, $window,names_list) {
      }
       
      $scope.removeOne = function(stock_name){
+         $scope.finished=false;
          console.log("REMOVING");
          $http.get("/remove/mylist/"+ stock_name)
             .then(function (response) {
@@ -180,7 +181,8 @@ myApp.controller('mainController', function($scope, $http, $window,names_list) {
                     }
          });
         $scope.getAll2();
-
+        console.log($scope.name_list  +" LOG DELETE" +$scope.name_list_2);
+        $scope.finished=true;
      }    
 }); 
 
