@@ -85,10 +85,9 @@ myApp.controller('mainController', function($scope, $http, $window,names_list) {
         // $scope.getAll();
          console.log($scope.name_list  +" LOG");
          
-         if($scope.name_list.length === 0 || $scope.name_list.lastIndexOf(stock_name) != -1){
+         if($scope.name_list.length === 0 || $scope.name_list.lastIndexOf(stock_name.toUpperCase()) != -1){
              alert("You have submitted a duplicate code.");
-             $('li').filter(function() { return $.text([this]) === stock_name; }).remove
-             stock_name=null;
+             $('li').filter(function() { return $.text([this]) === stock_name.toUpperCase(); }).remove
              
          }     
          
@@ -117,7 +116,7 @@ myApp.controller('mainController', function($scope, $http, $window,names_list) {
                                                 data: data.dataset.data
                                          });
                                          
-                                                    console.log(stock_name + " STOCK ADDED TO CHART");
+                                                console.log(stock_name + " STOCK ADDED TO CHART");
 
                                });
                             }
@@ -126,8 +125,7 @@ myApp.controller('mainController', function($scope, $http, $window,names_list) {
                     }).fail(function(jqXHR) {
                         if (jqXHR.status == 404) {
                             alert("You have submitted an incorrect stock code. Please check your stock codes and try again.");
-                            $('li').filter(function() { return $.text([this]) === stock_name; }).remove();
-                            stock_name=null;
+                            $('li').filter(function() { return $.text([this]) === stock_name.toUpperCase(); }).remove();
                         } else {
                             alert("Other non-handled error type");
                         }
