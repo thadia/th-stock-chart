@@ -82,7 +82,7 @@ myApp.controller('mainController', function($scope, $http, $window,names_list) {
      
      $scope.addStock = function(stock_name){
          //check if valid code
-         $scope.getAll();
+        // $scope.getAll();
          console.log($scope.name_list  +" LOG");
          
          if($scope.name_list.length === 0 || $scope.name_list.lastIndexOf(stock_name) != -1){

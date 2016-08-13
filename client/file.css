@@ -33,3 +33,6 @@ body{
     border-width:1px;
 }
 
+.ng-binding{
+  all:none;
+}  
