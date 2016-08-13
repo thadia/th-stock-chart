@@ -80,7 +80,6 @@ function addTag(id) {
 
 		// Clear input back to nothing
 		$(id + ' > input').val('');
-		Tag='';
 
 	}	
 
