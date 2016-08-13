@@ -87,7 +87,7 @@ myApp.controller('mainController', function($scope, $http, $window,names_list) {
        $scope.getAll2()
        console.log($scope.name_list  +" LOG ADD" +$scope.name_list_2);
         
-       if(($scope.name_list_2.length === 0 || $scope.name_list_2.lastIndexOf(stock_name.toUpperCase()) != -1) && $scope.finished===true){
+       if($scope.name_list_2.length === 0 || $scope.name_list_2.lastIndexOf(stock_name.toUpperCase()) != -1){
                  alert("You have submitted a duplicate code.");
                   $('li').filter(function() { return $.text([this]) === stock_name.toUpperCase(); }).remove();
                      
@@ -166,6 +166,7 @@ myApp.controller('mainController', function($scope, $http, $window,names_list) {
      $scope.removeOne = function(stock_name){
          $scope.finished=false;
          console.log("REMOVING");
+         
          $http.get("/remove/mylist/"+ stock_name)
             .then(function (response) {
                 var chart = $('#container').highcharts();
@@ -174,8 +175,6 @@ myApp.controller('mainController', function($scope, $http, $window,names_list) {
                             if(chart.series[i].name == stock_name){
                                 console.log(chart.series[i].name+ " was removed ");
                                 chart.series[i].remove();
-                                //$scope.getAll2();
-
                             }
                         }
                     }
