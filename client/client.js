@@ -113,9 +113,13 @@ myApp.controller('mainController', function($scope, $http, $window,names_list,so
      * @returns {undefined}
      */
      
-     socket=io();
+     socket.on('add:stock', function () {
+        $scope.getAll();
+    });
      
      $scope.addStock = function(stock_name){
+         
+         
          //check if valid code
        $scope.getAll();
        console.log($scope.name_list  +" LOG ADD " +$scope.name_list);
@@ -152,6 +156,8 @@ myApp.controller('mainController', function($scope, $http, $window,names_list,so
                                      
                                     console.log(stock_name + " STOCK ADDED TO CHART");
                                     $scope.getAll();
+                                   
+                                   
                                });
                             }
                     });
