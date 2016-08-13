@@ -97,7 +97,7 @@ myApp.controller('mainController', function($scope, $http, $window,$compile,name
         else {  //
                  var url_check="https://www.quandl.com/api/v3/datasets/WIKI/"+stock_name+"/metadata.json?api_key=MMk5vnfEYNykynsDCYXy";
                  $.getJSON(url_check, function(data) {
-                       
+                   $scope.stock_fullname=data.dataset.name;   
                    $http.get("/add/mylist/"+ stock_name)
                     .then(function (response) {
                            var chart = $('#container').highcharts();
@@ -116,9 +116,6 @@ myApp.controller('mainController', function($scope, $http, $window,$compile,name
                                         name: stock_name.toUpperCase(),
                                         data: data.dataset.data
                                     });
-                                   var html='<li ng-repeat="stock in name_list" ng-click="removeOne(stock)">'+stock_name.toUpperCase()+'</li>' ;
-                                   $('li').filter(function() { return $.text([this]) === stock_name.toUpperCase(); }).append($compile(html)($scope));
-
                                      
                                     console.log(stock_name + " STOCK ADDED TO CHART");
                                });
