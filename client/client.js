@@ -92,7 +92,7 @@ myApp.controller('mainController', function($scope, $http, $window,names_list) {
              
          }     
          
-         else{  //
+         else if(stock_name){  //
 
          
                  var url_check="https://www.quandl.com/api/v3/datasets/WIKI/"+stock_name+"/metadata.json?api_key=MMk5vnfEYNykynsDCYXy";
@@ -117,7 +117,7 @@ myApp.controller('mainController', function($scope, $http, $window,names_list) {
                                                 data: data.dataset.data
                                          });
                                          
-                                                    console.log("STOCK ADDED TO CHART");
+                                                    console.log(stock_name + " STOCK ADDED TO CHART");
 
                                });
                             }
