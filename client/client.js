@@ -82,13 +82,13 @@ myApp.controller('mainController', function($scope, $http, $window,names_list) {
      
      $scope.addStock = function(stock_name){
          //check if valid code
-         //if( $('li').filter(function() { return $(this).text() === stock_name; }).length === stock_name.length ){
          $scope.getAll();
          console.log($scope.name_list  +" LOG");
          
          if($scope.name_list.length === 0 || $scope.name_list.lastIndexOf(stock_name) != -1){
              alert("You have submitted a duplicate code.");
-             $('li').filter(function() { return $.text([this]) === stock_name; }).remove();
+             $('li').filter(function() { return $.text([this]) === stock_name; }).remove
+             stock_name=null;
              
          }     
          
@@ -118,7 +118,6 @@ myApp.controller('mainController', function($scope, $http, $window,names_list) {
                                          });
                                          
                                                     console.log("STOCK ADDED TO CHART");
-                                                    stock_name=null;
 
                                });
                             }
@@ -128,6 +127,7 @@ myApp.controller('mainController', function($scope, $http, $window,names_list) {
                         if (jqXHR.status == 404) {
                             alert("You have submitted an incorrect stock code. Please check your stock codes and try again.");
                             $('li').filter(function() { return $.text([this]) === stock_name; }).remove();
+                            stock_name=null;
                         } else {
                             alert("Other non-handled error type");
                         }
