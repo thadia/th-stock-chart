@@ -84,11 +84,10 @@ myApp.controller('mainController', function($scope, $http, $window,names_list) {
      
      $scope.addStock = function(stock_name){
          //check if valid code
-       $scope.getAll2()
-
-       console.log($scope.name_list  +" LOG ADD " +$scope.name_list_2);
+       $scope.getAll();
+       console.log($scope.name_list  +" LOG ADD " +$scope.name_list);
         
-       if($scope.name_list_2.length === 0 || $scope.name_list_2.lastIndexOf(stock_name.toUpperCase()) != -1){
+       if($scope.name_list.length === 0 || $scope.name_list.lastIndexOf(stock_name.toUpperCase()) != -1){
                  alert("You have submitted a duplicate code.");
                   $('li').filter(function() { return $.text([this]) === stock_name.toUpperCase(); }).remove();
                      
@@ -119,7 +118,7 @@ myApp.controller('mainController', function($scope, $http, $window,names_list) {
                                     });
                                      
                                     console.log(stock_name + " STOCK ADDED TO CHART");
-                                     $scope.getAll();
+                                    $scope.getAll();
                                });
                             }
                     });
@@ -128,6 +127,8 @@ myApp.controller('mainController', function($scope, $http, $window,names_list) {
                         if (jqXHR.status == 404) {
                             alert("You have submitted an incorrect stock code. Please check your stock codes and try again.");
                             $('li').filter(function() { return $.text([this]) === stock_name.toUpperCase(); }).remove();
+                            $scope.getAll();
+
                         } else {
                             alert("Other non-handled error type");
                         }
@@ -165,7 +166,7 @@ myApp.controller('mainController', function($scope, $http, $window,names_list) {
      }
       
      $scope.removeOne = function(stock_name){
-         $scope.finished=false;
+         $scope.getAll();
          console.log("REMOVING");
          
          $http.get("/remove/mylist/"+ stock_name)
@@ -180,9 +181,8 @@ myApp.controller('mainController', function($scope, $http, $window,names_list) {
                         }
                     }
          });
-        $scope.getAll2();
-        console.log($scope.name_list  +" LOG DELETE " +$scope.name_list_2);
-        $scope.finished=true;
+        $scope.getAll();
+        console.log($scope.name_list  +" LOG DELETE " +$scope.name_list);
      }    
 }); 
 
