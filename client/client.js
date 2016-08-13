@@ -78,21 +78,22 @@ myApp.controller('mainController', function($scope, $http, $window,names_list) {
     /**
      * Create the chart when all data is loaded
      * @returns {undefined}
-     
-     
      */
      
      $scope.addStock = function(stock_name){
          //check if valid code
          //if( $('li').filter(function() { return $(this).text() === stock_name; }).length === stock_name.length ){
-        $('li', $('#tag-cloud')).each(function() {
-            if($('li').filter(function() { return $.text([this]) === stock_name; }).length > 1) {
-               alert("You have submitted an duplicate. The code is already on the chart.");
-               $('li').filter(function() { return $.text([this]) === stock_name; }).remove();
-            }
-            else{
-                
-                var url_check="https://www.quandl.com/api/v3/datasets/WIKI/"+stock_name+"/metadata.json?api_key=MMk5vnfEYNykynsDCYXy";
+         $scope.getAll();
+         if($scope.name_list.lastIndexOf() != -1){
+             alert("You have submitted a duplicate code.");
+             $('li').filter(function() { return $.text([this]) === stock_name; }).remove();
+             
+         }     
+         
+         else{  //
+         
+         
+                 var url_check="https://www.quandl.com/api/v3/datasets/WIKI/"+stock_name+"/metadata.json?api_key=MMk5vnfEYNykynsDCYXy";
                  $.getJSON(url_check, function(data) {
                        
                    $http.get("/add/mylist/"+ stock_name)
@@ -124,25 +125,14 @@ myApp.controller('mainController', function($scope, $http, $window,names_list) {
                         } else {
                             alert("Other non-handled error type");
                         }
-                    });   
-                
-                
-            }    
-               
-        });
-
-         
-         
-         
-         
-                 
+                    });
          //}    
         // else {
          //   alert("You have submitted an duplicate. The code is already on the chart.");
           //   $('li').filter(function() { return $.text([this]) === stock_name; }).remove();   
        //  }     
          
-         
+         }  //
          
             
       }         
