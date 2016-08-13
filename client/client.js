@@ -2,36 +2,12 @@
 var myApp = angular.module('myApp',[]);
 //var socket = io();
 
-app.factory('socket', function ($rootScope) {
-  var socket = io.connect();
-  return {
-    on: function (eventName, callback) {
-      socket.on(eventName, function () {  
-        var args = arguments;
-        $rootScope.$apply(function () {
-          callback.apply(socket, args);
-        });
-      });
-    },
-    emit: function (eventName, data, callback) {
-      socket.emit(eventName, data, function () {
-        var args = arguments;
-        $rootScope.$apply(function () {
-          if (callback) {
-            callback.apply(socket, args);
-          }
-        });
-      })
-    }
-  };
-});
-
 
 myApp.factory('names_list', function($http){
    return $http.get("/stocks/mylist/all/names");
 });    
     
-myApp.controller('mainController', function($scope, $http, $window,names_list,socket) {
+myApp.controller('mainController', function($scope, $http, $window,names_list) {
         
     names_list.success(function(data) {
        $scope.name_list=data;
@@ -113,9 +89,6 @@ myApp.controller('mainController', function($scope, $http, $window,names_list,so
      * @returns {undefined}
      */
      
-     socket.on('add:stock', function () {
-        $scope.getAll();
-    });
      
      $scope.addStock = function(stock_name){
          
