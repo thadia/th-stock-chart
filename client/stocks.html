@@ -21,8 +21,8 @@
                   <input ng-keyup="$event.keyCode == 13 && addStock(s_name)" id="stock_input" type="text" placeholder="Enter stock symbol" ng-model="s_name"> <!--get StockName from here -->
                   <button id="addsymbol" class="btn btn-success btn-sm" type="button" ng-click="addStock(s_name)">Add <i class="fa fa-plus"></i></button>
              </div>
-             <ul id="my_list">
-                 <li class="my_li" ng-repeat="stock in name_list" ng-click="removeOne(stock)" ng-cloak>{{stock}} - {{stock_fullname}}</li>
+             <ul id="tag-cloud">
+                 <li class="tag-cloud tag-cloud-info" ng-repeat="stock in name_list" ng-click="removeOne(stock)" ng-cloak>{{stock}}</li>
              </ul>
     
     </div>
