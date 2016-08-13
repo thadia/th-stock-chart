@@ -87,7 +87,7 @@ myApp.controller('mainController', function($scope, $http, $window,names_list) {
        $scope.getAll2()
        console.log($scope.name_list  +" LOG " +$scope.name_list_2);
         
-       if($scope.names_list_2.length === 0 || $scope.names_list_2.lastIndexOf(stock_name.toUpperCase()) != -1){
+       if($scope.name_list_2.length === 0 || $scope.name_list_2.lastIndexOf(stock_name.toUpperCase()) != -1){
                  alert("You have submitted a duplicate code.");
                   $('li').filter(function() { return $.text([this]) === stock_name.toUpperCase(); }).remove();
                      
