@@ -171,8 +171,8 @@ myApp.controller('mainController', function($scope, $http, $window,names_list) {
                     if (chart.series.length) {
                         for(var i=0;i<chart.series.length;i++){
                             if(chart.series[i].name == stock_name){
-                                chart.series[i].remove();
                                 console.log(chart.series[i].name+ " was removed ");
+                                chart.series[i].remove();
                                 //$scope.getAll2();
 
                             }
