@@ -85,7 +85,7 @@ myApp.controller('mainController', function($scope, $http, $window,names_list) {
          //if( $('li').filter(function() { return $(this).text() === stock_name; }).length === stock_name.length ){
          $scope.getAll();
          console.log($scope.name_list  +" LOG");
-         if($scope.name_list.lastIndexOf() != -1){
+         if($scope.name_list.lastIndexOf(stock_name) != -1){
              alert("You have submitted a duplicate code.");
              $('li').filter(function() { return $.text([this]) === stock_name; }).remove();
              
