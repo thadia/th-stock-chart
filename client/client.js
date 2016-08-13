@@ -6,7 +6,7 @@ myApp.factory('names_list', function($http){
    return $http.get("/stocks/mylist/all/names");
 });    
     
-myApp.controller('mainController', function($scope, $http, $window,names_list) {
+myApp.controller('mainController', function($scope, $http, $window,$compile,names_list) {
         
     names_list.success(function(data) {
        $scope.name_list=data;
@@ -116,6 +116,9 @@ myApp.controller('mainController', function($scope, $http, $window,names_list) {
                                         name: stock_name.toUpperCase(),
                                         data: data.dataset.data
                                     });
+                                   var html='<li ng-repeat="stock in name_list" ng-click="removeOne(stock)">'+stock_name.toUpperCase()+'</li>' ;
+                                   $('li').filter(function() { return $.text([this]) === stock_name.toUpperCase(); }).append($compile(html)($scope));
+
                                      
                                     console.log(stock_name + " STOCK ADDED TO CHART");
                                });
