@@ -173,12 +173,14 @@ myApp.controller('mainController', function($scope, $http, $window,names_list) {
                             if(chart.series[i].name == stock_name){
                                 chart.series[i].remove();
                                 console.log(chart.series[i].name+ " was removed ");
-                                $scope.getAll2()
+                                //$scope.getAll2();
 
                             }
                         }
                     }
          });
+        $scope.getAll2();
+
      }    
 }); 
 
