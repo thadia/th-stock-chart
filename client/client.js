@@ -89,7 +89,7 @@ myApp.controller('mainController', function($scope, $http, $window,names_list) {
         
        if($scope.name_list.length === 0 || $scope.name_list.lastIndexOf(stock_name.toUpperCase()) != -1){
                  alert("You have submitted a duplicate code.");
-                  $('li').filter(function() { return $.text([this]) === stock_name.toUpperCase(); }).remove();
+               //   $('li').filter(function() { return $.text([this]) === stock_name.toUpperCase(); }).remove();
                      
          }   
         
