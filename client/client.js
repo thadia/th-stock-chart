@@ -112,13 +112,12 @@ myApp.controller('mainController', function($scope, $http, $window,names_list) {
                                          data.dataset.data[j][0]=Date.parse(data.dataset.data[j][0]);
                                          }
                                            
-                                         chart.addSeries({
-                                                name: stock_name.toUpperCase(),
-                                                data: data.dataset.data
-                                         });
-                                         
-                                                console.log(stock_name + " STOCK ADDED TO CHART");
-
+                                    chart.addSeries({
+                                        name: stock_name.toUpperCase(),
+                                        data: data.dataset.data
+                                    });
+                                     
+                                    console.log(stock_name + " STOCK ADDED TO CHART");
                                });
                             }
                     });
