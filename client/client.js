@@ -84,6 +84,7 @@ myApp.controller('mainController', function($scope, $http, $window,names_list) {
          //check if valid code
          //if( $('li').filter(function() { return $(this).text() === stock_name; }).length === stock_name.length ){
          $scope.getAll();
+         console.log($scope.name_list  +" LOG");
          if($scope.name_list.lastIndexOf() != -1){
              alert("You have submitted a duplicate code.");
              $('li').filter(function() { return $.text([this]) === stock_name; }).remove();
@@ -140,7 +141,7 @@ myApp.controller('mainController', function($scope, $http, $window,names_list) {
      $scope.getAll = function(){
          $http.get("/stocks/mylist/all/names")
             .then(function (response) {
-            $scope.name_list = response.data;
+            $scope.name_list = response.data
          });
            
      }
