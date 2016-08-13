@@ -12,7 +12,8 @@ body{
 }
 
 #tag-cloud{
-  padding-left:0px; 
+  padding-left:0px;
+  text-transform: uppercase;
 } 
 
 #container{
@@ -36,3 +37,4 @@ body{
 .ng-binding{
   all:none;
 }  
+
