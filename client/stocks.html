@@ -22,7 +22,7 @@
                   <button id="addsymbol" class="btn btn-success btn-sm" type="button" ng-click="addStock(s_name)">Add <i class="fa fa-plus"></i></button>
              </div>
              <ul id="tag-cloud">
-                 <li class="tag-cloud tag-cloud-info" ng-repeat="stock in name_list" ng-click="removeOne(stock)" ng-cloak ng-hide="name_list.lastIndexOf(stock) == -1">{{stock}}</li>
+                 <li class="tag-cloud tag-cloud-info" ng-repeat="stock in name_list" ng-click="removeOne(stock)" ng-cloak>{{stock}}</li>
              </ul>
     
     </div>
