@@ -98,7 +98,7 @@ myApp.controller('mainController', function($scope, $http, $window,names_list) {
                  var url_check="https://www.quandl.com/api/v3/datasets/WIKI/"+stock_name+"/metadata.json?api_key=MMk5vnfEYNykynsDCYXy";
                  $.getJSON(url_check, function(data) {
 
-                   $http.get("/add/mylist/"+ stock_name)
+                   $http.get("/add/mylist/"+ stock_name + "-" + data.dataset.name )
                     .then(function (response) {
                            var chart = $('#container').highcharts();
                            if (chart.series.length >= 0) {
