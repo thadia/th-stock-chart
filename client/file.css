@@ -37,4 +37,4 @@ body{
   all:none;
 }  
 
-#stock_input:valid { text-transform: uppercase; }
+.ng-empty { text-transform: uppercase; }
