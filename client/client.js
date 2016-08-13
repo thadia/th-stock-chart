@@ -83,17 +83,7 @@ myApp.controller('mainController', function($scope, $http, $window,names_list) {
      $scope.addStock = function(stock_name){
          //check if valid code
         // $scope.getAll();
-         console.log($scope.name_list  +" LOG");
-         
-         if($scope.name_list.length === 0 || $scope.name_list.lastIndexOf(stock_name.toUpperCase()) != -1){
-             alert("You have submitted a duplicate code.");
-             $('li').filter(function() { return $.text([this]) === stock_name.toUpperCase(); }).remove
-             
-         }     
-         
-         else if(stock_name){  //
-
-         
+         if(stock_name){  //
                  var url_check="https://www.quandl.com/api/v3/datasets/WIKI/"+stock_name+"/metadata.json?api_key=MMk5vnfEYNykynsDCYXy";
                  $.getJSON(url_check, function(data) {
                        
@@ -130,6 +120,14 @@ myApp.controller('mainController', function($scope, $http, $window,names_list) {
                             alert("Other non-handled error type");
                         }
                     });
+                    
+                console.log($scope.name_list  +" LOG");
+         
+                 if($scope.name_list.length === 0 || $scope.name_list.lastIndexOf(stock_name.toUpperCase()) != -1){
+                     alert("You have submitted a duplicate code.");
+                     $('li').filter(function() { return $.text([this]) === stock_name.toUpperCase(); }).remove
+                     
+                 }     
          //}    
         // else {
          //   alert("You have submitted an duplicate. The code is already on the chart.");
