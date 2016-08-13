@@ -37,4 +37,4 @@ body{
   all:none;
 }  
 
-.ng-empty { text-transform: uppercase; }
+.ng-not-empty { text-transform: uppercase; }
