@@ -76,7 +76,7 @@ function addTag(id) {
 	if (Tag != '') {
 
 		// Append tag with proper styling into the tag cloud 
-		$('<li class="'+tagClass+'" ng-click="removeOne(stock)" ng-cloak>'+Tag+' </li>').appendTo("#tag-cloud");
+		$('<li class="'+tagClass+'" ng-click="removeOne(stock)" ng-cloak>'+Tag+'</li>').appendTo("#tag-cloud");
 
 		// Clear input back to nothing
 		$(id + ' > input').val('');
