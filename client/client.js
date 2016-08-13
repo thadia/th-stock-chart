@@ -118,7 +118,8 @@ myApp.controller('mainController', function($scope, $http, $window,names_list) {
                                          });
                                          
                                                     console.log("STOCK ADDED TO CHART");
-     
+                                                    stock_name=null;
+
                                });
                             }
                     });
