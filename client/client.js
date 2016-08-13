@@ -121,14 +121,7 @@ myApp.controller('mainController', function($scope, $http, $window,names_list) {
                         }
                     });
                     
-                console.log($scope.name_list  +" LOG");
-         
-                 if($scope.name_list.length === 0 || $scope.name_list.lastIndexOf(stock_name.toUpperCase()) != -1){
-                     alert("You have submitted a duplicate code.");
-                     $('li').filter(function() { return $.text([this]) === stock_name.toUpperCase(); }).remove
-                     
-                 }     
-         //}    
+                
         // else {
          //   alert("You have submitted an duplicate. The code is already on the chart.");
           //   $('li').filter(function() { return $.text([this]) === stock_name; }).remove();   
@@ -136,6 +129,14 @@ myApp.controller('mainController', function($scope, $http, $window,names_list) {
          
          }  //
          
+         console.log($scope.name_list  +" LOG");
+         
+                 if($scope.name_list.length === 0 || $scope.name_list.lastIndexOf(stock_name.toUpperCase()) != -1){
+                     alert("You have submitted a duplicate code.");
+                     $('li').filter(function() { return $.text([this]) === stock_name.toUpperCase(); }).remove
+                     
+                 }     
+         //}    
             
       }         
       
