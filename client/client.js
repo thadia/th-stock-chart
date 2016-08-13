@@ -113,7 +113,7 @@ myApp.controller('mainController', function($scope, $http, $window,names_list) {
                                          }
                                            
                                     chart.addSeries({
-                                        name: stock_name.toUpperCase(),
+                                        name: stock_name.toUpperCase() +" - "+ data.dataset.name,
                                         data: data.dataset.data
                                     });
                                      
