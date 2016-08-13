@@ -36,3 +36,5 @@ body{
 .ng-binding{
   all:none;
 }  
+
+#stock_input:valid { text-transform: uppercase; }
