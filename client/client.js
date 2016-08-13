@@ -85,7 +85,7 @@ myApp.controller('mainController', function($scope, $http, $window,names_list) {
      $scope.addStock = function(stock_name){
          //check if valid code
        $scope.getAll2()
-       console.log($scope.name_list  +" LOG ADD" +$scope.name_list_2);
+       console.log($scope.name_list  +" LOG ADD " +$scope.name_list_2);
         
        if($scope.name_list_2.length === 0 || $scope.name_list_2.lastIndexOf(stock_name.toUpperCase()) != -1){
                  alert("You have submitted a duplicate code.");
@@ -180,7 +180,7 @@ myApp.controller('mainController', function($scope, $http, $window,names_list) {
                     }
          });
         $scope.getAll2();
-        console.log($scope.name_list  +" LOG DELETE" +$scope.name_list_2);
+        console.log($scope.name_list  +" LOG DELETE " +$scope.name_list_2);
         $scope.finished=true;
      }    
 }); 
