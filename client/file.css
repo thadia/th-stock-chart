@@ -16,6 +16,11 @@ body{
   text-transform: uppercase;
 } 
 
+#tag-info{
+  padding-top:2px;
+} 
+
+
 #container{
   padding-top:5%;
 }  
