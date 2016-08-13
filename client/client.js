@@ -51,39 +51,37 @@ myApp.controller('mainController', function($scope, $http, $window,names_list) {
         });
     }
 
-    $.each(names, function (i, name) {
+    if(names.length <=0){
+         createChart();
+    }
+    
+    else {
+        $.each(names, function (i, name) {
        //https://www.quandl.com/api/v3/datasets/WIKI/'+name+'.json?order=asc&column_index=4&collapse=daily&transformation=none&start_date=2014-01-01&api_key=MMk5vnfEYNykynsDCYXy
        
-       if(names.length >0){
-           
-           var start_date=new Date();
-           start_date.setFullYear(start_date.getFullYear() - 1);
-        
-           $.getJSON('https://www.quandl.com/api/v3/datasets/WIKI/'+name+'.json?order=asc&column_index=4&collapse=daily&transformation=none&api_key=MMk5vnfEYNykynsDCYXy&start_date='+start_date.toISOString().slice(0, 10), function (data) {
-             console.log(name+ " Reading from database;");   
-                for(var j=0;j<data.dataset.data.length;j++){
-                    data.dataset.data[j][0]=Date.parse(data.dataset.data[j][0]);
-                }
-                seriesOptions[i] = {
-                    name: name,
-                    data: data.dataset.data
-                };
-                // https://www.highcharts.com/samples/data/jsonp.php?filename=msft-c.json&callback=jQuery31006323779385139796_1470527146017&_=1470527146018
-                // As we're loading the data asynchronously, we don't know what order it will arrive. So
-                // we keep a counter and create the chart when all the data is loaded.
-                seriesCounter += 1;
-                if (seriesCounter === names.length) {
-                    createChart();
+       var start_date=new Date();
+       start_date.setFullYear(start_date.getFullYear() - 1);
     
-                }
-            });
-     
-        }
+        $.getJSON('https://www.quandl.com/api/v3/datasets/WIKI/'+name+'.json?order=asc&column_index=4&collapse=daily&transformation=none&api_key=MMk5vnfEYNykynsDCYXy&start_date='+start_date.toISOString().slice(0, 10), function (data) {
+         console.log(name+ " Reading from database;");   
+            for(var j=0;j<data.dataset.data.length;j++){
+                data.dataset.data[j][0]=Date.parse(data.dataset.data[j][0]);
+            }
+            seriesOptions[i] = {
+                name: name,
+                data: data.dataset.data
+            };
+            // https://www.highcharts.com/samples/data/jsonp.php?filename=msft-c.json&callback=jQuery31006323779385139796_1470527146017&_=1470527146018
+            // As we're loading the data asynchronously, we don't know what order it will arrive. So
+            // we keep a counter and create the chart when all the data is loaded.
+            seriesCounter += 1;
+            if (seriesCounter === names.length) {
+                createChart();
+            }
+        });
+    });
+    } 
     
-        if(names.length === 0){
-            createChart();
-        }
-     
     });    
     /**
      * Create the chart when all data is loaded
