@@ -62,7 +62,7 @@ myApp.controller('mainController', function($scope, $http, $window,names_list) {
                 data.dataset.data[j][0]=Date.parse(data.dataset.data[j][0]);
             }
             seriesOptions[i] = {
-                name: name.substr(0,name.indexOf('-')),
+                name: name,
                 data: data.dataset.data
             };
             // https://www.highcharts.com/samples/data/jsonp.php?filename=msft-c.json&callback=jQuery31006323779385139796_1470527146017&_=1470527146018
@@ -98,7 +98,7 @@ myApp.controller('mainController', function($scope, $http, $window,names_list) {
                  var url_check="https://www.quandl.com/api/v3/datasets/WIKI/"+stock_name+"/metadata.json?api_key=MMk5vnfEYNykynsDCYXy";
                  $.getJSON(url_check, function(data) {
 
-                   $http.get("/add/mylist/"+ stock_name + "-" + data.dataset.name )
+                   $http.get("/add/mylist/"+ stock_name + "- " + data.dataset.name )
                     .then(function (response) {
                            var chart = $('#container').highcharts();
                            if (chart.series.length >= 0) {
@@ -113,7 +113,7 @@ myApp.controller('mainController', function($scope, $http, $window,names_list) {
                                          }
                                            
                                     chart.addSeries({
-                                        name: stock_name.toUpperCase() +" - "+ data.dataset.name,
+                                        name: stock_name.toUpperCase() +" -"+ data.dataset.name,
                                         data: data.dataset.data
                                     });
                                      
