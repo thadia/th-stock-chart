@@ -9,7 +9,9 @@ myApp.factory('names_list', function($http){
 myApp.controller('mainController', function($scope, $http, $window,names_list) {
         
     names_list.success(function(data) {
-       $scope.name_list=data;    
+       $scope.name_list=data;
+       $scope.name_list_2=data;    
+
        console.log(data + " Data");
        var seriesOptions = [],
            seriesCounter = 0,
@@ -82,10 +84,10 @@ myApp.controller('mainController', function($scope, $http, $window,names_list) {
      
      $scope.addStock = function(stock_name){
          //check if valid code
-      
-        console.log($scope.name_list  +" LOG " +$scope.names_list);
+       $scope.getAll2()
+       console.log($scope.name_list  +" LOG " +$scope.name_list_2);
         
-       if($scope.names_list.length === 0 || $scope.names_list.lastIndexOf(stock_name.toUpperCase()) != -1){
+       if($scope.names_list_2.length === 0 || $scope.names_list_2.lastIndexOf(stock_name.toUpperCase()) != -1){
                  alert("You have submitted a duplicate code.");
                   $('li').filter(function() { return $.text([this]) === stock_name.toUpperCase(); }).remove();
                      
