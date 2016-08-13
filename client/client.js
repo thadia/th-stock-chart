@@ -86,7 +86,7 @@ myApp.controller('mainController', function($scope, $http, $window,names_list) {
          //check if valid code
          //if( $('li').filter(function() { return $(this).text() === stock_name; }).length === stock_name.length ){
         $('li', $('#tag-cloud')).each(function() {
-            if($('li:contains("stock_name")', ul).length > 1) {
+            if($('li').filter(function() { return $.text([this]) === stock_name; }).length > 1) {
                alert("You have submitted an duplicate. The code is already on the chart.");
                $('li').filter(function() { return $.text([this]) === stock_name; }).remove();
             }
