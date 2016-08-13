@@ -6,7 +6,7 @@ myApp.factory('names_list', function($http){
    return $http.get("/stocks/mylist/all/names");
 });    
     
-myApp.controller('mainController', function($scope, $http, $window,$compile,names_list) {
+myApp.controller('mainController', function($scope, $http, $window,names_list) {
         
     names_list.success(function(data) {
        $scope.name_list=data;
@@ -107,7 +107,6 @@ myApp.controller('mainController', function($scope, $http, $window,$compile,name
                                start_date.setFullYear(start_date.getFullYear() - 1);
                                var url = 'https://www.quandl.com/api/v3/datasets/WIKI/'+stock_name.toUpperCase()+'.json?order=asc&column_index=4&collapse=daily&transformation=none&api_key=MMk5vnfEYNykynsDCYXy&start_date='+start_date.toISOString().slice(0, 10);
                                $.getJSON(url, function (data)  {
-                                    $scope.stock_fullname=data.dataset.name;   
   
                                     for(var j=0;j<data.dataset.data.length;j++){
                                          data.dataset.data[j][0]=Date.parse(data.dataset.data[j][0]);
