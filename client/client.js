@@ -56,8 +56,8 @@ myApp.controller('mainController', function($scope, $http, $window,names_list) {
        var start_date=new Date();
        start_date.setFullYear(start_date.getFullYear() - 1);
     
-        $.getJSON('https://www.quandl.com/api/v3/datasets/WIKI/'+name.substr(0,name.indexOf('-'))+'.json?order=asc&column_index=4&collapse=daily&transformation=none&api_key=MMk5vnfEYNykynsDCYXy&start_date='+start_date.toISOString().slice(0, 10), function (data) {
-         console.log(name.substr(0,name.indexOf('-')) + " Reading from database;");   
+        $.getJSON('https://www.quandl.com/api/v3/datasets/WIKI/'+name+'.json?order=asc&column_index=4&collapse=daily&transformation=none&api_key=MMk5vnfEYNykynsDCYXy&start_date='+start_date.toISOString().slice(0, 10), function (data) {
+         console.log(name+ " Reading from database;");   
             for(var j=0;j<data.dataset.data.length;j++){
                 data.dataset.data[j][0]=Date.parse(data.dataset.data[j][0]);
             }
@@ -98,7 +98,7 @@ myApp.controller('mainController', function($scope, $http, $window,names_list) {
                  var url_check="https://www.quandl.com/api/v3/datasets/WIKI/"+stock_name+"/metadata.json?api_key=MMk5vnfEYNykynsDCYXy";
                  $.getJSON(url_check, function(data) {
 
-                   $http.get("/add/mylist/"+ stock_name + "- " + data.dataset.name )
+                   $http.get("/add/mylist/"+ stock_name)
                     .then(function (response) {
                            var chart = $('#container').highcharts();
                            if (chart.series.length >= 0) {
@@ -113,7 +113,7 @@ myApp.controller('mainController', function($scope, $http, $window,names_list) {
                                          }
                                            
                                     chart.addSeries({
-                                        name: stock_name.toUpperCase() +"- "+ data.dataset.name,
+                                        name: stock_name.toUpperCase(),
                                         data: data.dataset.data
                                     });
                                      
