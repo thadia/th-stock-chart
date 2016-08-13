@@ -82,10 +82,10 @@ myApp.controller('mainController', function($scope, $http, $window,names_list) {
      
      $scope.addStock = function(stock_name){
          //check if valid code
-        $scope.getAll2();
-        console.log($scope.name_list  +" LOG " +$scope.name_list_2);
+      
+        console.log($scope.name_list  +" LOG " +$scope.names_list);
         
-       if(names_list.length === 0 || names_list.lastIndexOf(stock_name.toUpperCase()) != -1){
+       if($scope.names_list.length === 0 || $scope.names_list.lastIndexOf(stock_name.toUpperCase()) != -1){
                  alert("You have submitted a duplicate code.");
                   $('li').filter(function() { return $.text([this]) === stock_name.toUpperCase(); }).remove();
                      
