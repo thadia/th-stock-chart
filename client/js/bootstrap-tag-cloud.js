@@ -79,7 +79,8 @@ function addTag(id) {
 		$('<li class="'+tagClass+'">'+Tag+'</li>').appendTo("#tag-cloud");
 
 		// Clear input back to nothing
-		$(id + ' > input').val('');		
+		$(id + ' > input').val('');
+		Tag='';
 
 	}	
 
