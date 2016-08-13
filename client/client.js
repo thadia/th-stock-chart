@@ -85,6 +85,7 @@ myApp.controller('mainController', function($scope, $http, $window,names_list) {
          //if( $('li').filter(function() { return $(this).text() === stock_name; }).length === stock_name.length ){
          $scope.getAll();
          console.log($scope.name_list  +" LOG");
+         
          if($scope.name_list.lastIndexOf(stock_name) != -1){
              alert("You have submitted a duplicate code.");
              $('li').filter(function() { return $.text([this]) === stock_name; }).remove();
@@ -92,7 +93,7 @@ myApp.controller('mainController', function($scope, $http, $window,names_list) {
          }     
          
          else{  //
-         
+
          
                  var url_check="https://www.quandl.com/api/v3/datasets/WIKI/"+stock_name+"/metadata.json?api_key=MMk5vnfEYNykynsDCYXy";
                  $.getJSON(url_check, function(data) {
@@ -115,6 +116,9 @@ myApp.controller('mainController', function($scope, $http, $window,names_list) {
                                                 name: stock_name.toUpperCase(),
                                                 data: data.dataset.data
                                          });
+                                         
+                                                    console.log("STOCK ADDED TO CHART");
+     
                                });
                             }
                     });
