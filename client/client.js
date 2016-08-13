@@ -82,8 +82,16 @@ myApp.controller('mainController', function($scope, $http, $window,names_list) {
      
      $scope.addStock = function(stock_name){
          //check if valid code
-        // $scope.getAll();
-         if(stock_name){  //
+        $scope.getAll2();
+        console.log($scope.name_list  +" LOG " +$scope.name_list_2);
+          if($scope.name_list_2.length === 0 || $scope.name_list_2.lastIndexOf(stock_name.toUpperCase()) != -1){
+                 alert("You have submitted a duplicate code.");
+                  $('li').filter(function() { return $.text([this]) === stock_name.toUpperCase(); }).remove();
+                     
+                 }   
+        
+        
+        else {  //
                  var url_check="https://www.quandl.com/api/v3/datasets/WIKI/"+stock_name+"/metadata.json?api_key=MMk5vnfEYNykynsDCYXy";
                  $.getJSON(url_check, function(data) {
                        
@@ -129,13 +137,7 @@ myApp.controller('mainController', function($scope, $http, $window,names_list) {
          
          }  //
          
-         console.log($scope.name_list  +" LOG");
-         
-                 if($scope.name_list.length === 0 || $scope.name_list.lastIndexOf(stock_name.toUpperCase()) != -1){
-                     alert("You have submitted a duplicate code.");
-                     $('li').filter(function() { return $.text([this]) === stock_name.toUpperCase(); }).remove();
-                     
-                 }     
+           
          //}    
             
       }         
@@ -143,7 +145,17 @@ myApp.controller('mainController', function($scope, $http, $window,names_list) {
      $scope.getAll = function(){
          $http.get("/stocks/mylist/all/names")
             .then(function (response) {
-            $scope.name_list = response.data
+            $scope.name_list = response.data;
+
+         });
+           
+     }
+     
+      $scope.getAll2 = function(){
+         $http.get("/stocks/mylist/all/names")
+            .then(function (response) {
+            $scope.name_list_2 = response.data
+
          });
            
      }
