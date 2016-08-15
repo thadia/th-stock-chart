@@ -85,7 +85,7 @@ myApp.controller('mainController', function($scope, $http, $window,names_list,so
      * Create the chart when all data is loaded
      * @returns {undefined}
      */
-     var socket = io.connect();
+    /* var socket = io.connect();
         socket.on('change', function(obj) {
              $scope.name_list = obj;
              $scope.$apply();
@@ -160,12 +160,12 @@ myApp.controller('mainController', function($scope, $http, $window,names_list,so
          //}    
             
       }         
-      
+     */ 
      $scope.getAll = function(){
          $http.get("/stocks/mylist/all/names")
             .then(function (response) {
             $scope.name_list = response.data;
-            socket.emit('change', $scope.name_list);
+    //        socket.emit('change', $scope.name_list);
 
          });
            

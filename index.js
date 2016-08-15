@@ -21,6 +21,8 @@ var Schema = mongoose.Schema
 // API Key: MMk5vnfEYNykynsDCYXy
 // https://www.quandl.com/api/v3/datasets/WIKI/FB/data.json
 // http://socket.io/get-started/chat/
+
+/*
 io.sockets.on('connection', function (socket) {
     console.log('A client is connected!');
 });
@@ -37,6 +39,8 @@ io.sockets.on('connection', function(socket) {
     socket.broadcast.emit('change', data);
   });
 });
+
+*/
 
 var StocksSchema = new Schema({
     stock_table : { type: String, required: true, trim: true },
