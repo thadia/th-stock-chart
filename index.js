@@ -16,7 +16,7 @@ var Promise = require('es6-promise').Promise;
 var Schema = mongoose.Schema
   , ObjectId = Schema.ObjectID;
  
-
+  var socket = io.connect();
 // API Key: MMk5vnfEYNykynsDCYXy
 // https://www.quandl.com/api/v3/datasets/WIKI/FB/data.json
 // http://socket.io/get-started/chat/
