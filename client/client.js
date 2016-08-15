@@ -1,13 +1,37 @@
 
 var myApp = angular.module('myApp',[]);
-//var socket = io();
-
-
 myApp.factory('names_list', function($http){
    return $http.get("/stocks/mylist/all/names");
 });    
     
-myApp.controller('mainController', function($scope, $http, $window,names_list) {
+//var socket = io();
+
+myApp.factory('socket', function ($rootScope) {
+  var socket = io.connect();
+  return {
+    on: function (eventName, callback) {
+      socket.on(eventName, function () {  
+        var args = arguments;
+        $rootScope.$apply(function () {
+          callback.apply(socket, args);
+        });
+      });
+    },
+    emit: function (eventName, data, callback) {
+      socket.emit(eventName, data, function () {
+        var args = arguments;
+        $rootScope.$apply(function () {
+          if (callback) {
+            callback.apply(socket, args);
+          }
+        });
+      })
+    }
+  };
+});
+
+
+myApp.controller('mainController', function($scope, $http, $window,names_list, socket) {
         
     names_list.success(function(data) {
        $scope.name_list=data;
@@ -88,6 +112,26 @@ myApp.controller('mainController', function($scope, $http, $window,names_list) {
      * Create the chart when all data is loaded
      * @returns {undefined}
      */
+     
+     
+    socket.on('add:stock', function (data) {
+        $scope.addStock(data.stock_name);
+     });
+     
+     
+     $scope.changeName = function () {
+            socket.emit('add:stock', {
+              name: $scope.stock_name
+            }, function (result) {
+              if (!result) {
+                alert('There was an error changing your name');
+              } else {
+                $scope.addStock($scope.stock_name);
+              }
+            });
+     };
+
+     
      
      
      $scope.addStock = function(stock_name){
