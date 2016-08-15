@@ -30,21 +30,6 @@ var Stock = mongoose.model('Stock',StocksSchema);
 
 mongoose.connect('mongodb://stocks_user:db_user_stocks@ds153735.mlab.com:53735/current_stocks_db');
 
-io.on('connection', function(socket){
-  console.log('a user connected');
-  socket.on('disconnect', function(){
-    console.log('user disconnected');
-  });
-});
-
- 
- io.on('add:stock', function (data, fn) {
-     io.broadcast.emit('add:stock', {
-      });
-      fn(true);
- });
-  
-
 
 app.listen(port, function(){ 
   console.log('Ready: ' + port);
