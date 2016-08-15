@@ -6,7 +6,7 @@ myApp.factory('names_list', function($http){
     
 //var socket = io();
 
-myApp.controller('mainController', function($scope, $http, $window,names_list,socket) {
+myApp.controller('mainController', function($scope, $http, $window,names_list) {
         
     names_list.success(function(data) {
        $scope.name_list=data;
