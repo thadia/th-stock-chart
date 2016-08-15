@@ -5,7 +5,6 @@ var app = server();
 app.use(server.static(__dirname + '/public'));
 app.use('/bower_components', server.static(__dirname + '/bower_components'));
 app.use('/node_modules', server.static(__dirname + '/node_modules'));
-
 app.use('/client', server.static(__dirname + '/client'));
 app.use(require('cookie-parser')());
 app.use(require('body-parser').urlencoded({ extended: true }));

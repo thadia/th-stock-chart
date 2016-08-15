@@ -5,7 +5,7 @@ myApp.factory('names_list', function($http){
 });    
     
 //var socket = io();
- 
+var socket = io.connect('http://localhost:8080'); 
 
 myApp.controller('mainController', function($scope, $http, $window,names_list) {
         
