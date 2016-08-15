@@ -36,7 +36,7 @@ var Stock = mongoose.model('Stock',StocksSchema);
 
 mongoose.connect('mongodb://stocks_user:db_user_stocks@ds153735.mlab.com:53735/current_stocks_db');
 
-app.listen(port, function(){ 
+server.listen(port, function(){ 
   console.log('Ready: ' + port);
   });
  
