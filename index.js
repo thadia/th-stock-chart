@@ -37,13 +37,13 @@ io.on('connection', function(socket){
   });
 });
 
-module.exports = function (socket) {
-    socket.on('add:stock', function (data, fn) {
-      socket.broadcast.emit('add:stock', {
+ 
+ io.on('add:stock', function (data, fn) {
+     io.broadcast.emit('add:stock', {
       });
       fn(true);
-  });
-}    
+ });
+  
 
 
 app.listen(port, function(){ 
