@@ -4,6 +4,8 @@ var port = process.env.PORT || 3500;
 var app = server();
 app.use(server.static(__dirname + '/public'));
 app.use('/bower_components', server.static(__dirname + '/bower_components'));
+app.use('/node_modules', server.static(__dirname + '/node_modules'));
+
 app.use('/client', server.static(__dirname + '/client'));
 app.use(require('cookie-parser')());
 app.use(require('body-parser').urlencoded({ extended: true }));
@@ -36,7 +38,7 @@ var Stock = mongoose.model('Stock',StocksSchema);
 
 mongoose.connect('mongodb://stocks_user:db_user_stocks@ds153735.mlab.com:53735/current_stocks_db');
 
-server.listen(port, function(){ 
+app.listen(port, function(){ 
   console.log('Ready: ' + port);
   });
  
