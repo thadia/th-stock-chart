@@ -32,14 +32,6 @@ io.sockets.on('add', function (socket) {
     console.log('We are broadcasting a stock add.');
 });
 
-
-        
-
-var port = process.env.PORT || 3000;
-var server = connect(
-  connect.static(__dirname + '/public')
-).listen(port);
-
 var data = [];
 Stock.find({}, '-_id',{},function(err, latest_data) {
         if (err) return console.error(err);
