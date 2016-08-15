@@ -9,7 +9,7 @@ app.use(require('cookie-parser')());
 app.use(require('body-parser').urlencoded({ extended: true }));
 app.use(require('express-session')({ secret: 'keyboard cat', resave: true, saveUninitialized: true }));
 var http = require('http').Server(app);
-var io = require('socket.io')(http);
+var io = require('socket.io').listen(server);
 var path = require('path');
 var mongoose = require('mongoose');
 var Promise = require('es6-promise').Promise;
@@ -19,7 +19,13 @@ var Schema = mongoose.Schema
 // API Key: MMk5vnfEYNykynsDCYXy
 // https://www.quandl.com/api/v3/datasets/WIKI/FB/data.json
 // http://socket.io/get-started/chat/
+io.sockets.on('connection', function (socket) {
+    console.log('A client is connected!');
+});
 
+io.sockets.on('add', function (socket) {
+    console.log('We are broadcasting a stock add.');
+});
 
 var StocksSchema = new Schema({
     stock_table : { type: String, required: true, trim: true },
@@ -29,7 +35,6 @@ var StocksSchema = new Schema({
 var Stock = mongoose.model('Stock',StocksSchema);
 
 mongoose.connect('mongodb://stocks_user:db_user_stocks@ds153735.mlab.com:53735/current_stocks_db');
-
 
 app.listen(port, function(){ 
   console.log('Ready: ' + port);
@@ -52,8 +57,6 @@ app.get('/', function(req, res) {
         });
 }); 
 
-
-
 app.get('/stocks/:mylist/all/names', function(req, res) {
   
       Stock.find({stock_table: req.params.mylist.toUpperCase()}, '-_id',{},function(err, latest_data) {
@@ -65,7 +68,6 @@ app.get('/stocks/:mylist/all/names', function(req, res) {
     });
 
 });
-
 
 app.get('/stocks/showall', function(req, res) {
   
@@ -108,7 +110,6 @@ app.get('/add/:mylist/:stockname', function(req, res) {
      });
 });
 
-
 app.get('/remove/:mylist/:stockname', function(req, res) {
   
       Stock.find({stock_table: req.params.mylist.toUpperCase()},  {},function(err, latest_data) {
@@ -137,7 +138,6 @@ app.get('/remove/:mylist/:stockname', function(req, res) {
         }
      });
 });
-
   
 //DB admin only
 app.get('/add/:stockdatabase', function(req, res) {
