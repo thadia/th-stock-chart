@@ -36,7 +36,16 @@ io.on('connection', function(socket){
   socket.on('disconnect', function(){
     console.log('user disconnected');
   });
-}); 
+});
+
+module.exports = function (socket) {
+    socket.on('add:stock', function (data, fn) {
+      socket.broadcast.emit('add:stock', {
+      });
+      fn(true);
+  });
+}    
+
 
 app.listen(port, function(){ 
   console.log('Ready: ' + port);
