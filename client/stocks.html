@@ -22,12 +22,23 @@
                   <button id="addsymbol" class="btn btn-success btn-sm" type="button" ng-click="addStock(s_name)">Add <i class="fa fa-plus"></i></button>
              </div>
              <ul id="tag-cloud">
+             
                  <li class="tag-cloud tag-cloud-info" ng-repeat="stock in name_list" ng-click="removeOne(stock)" ng-cloak>{{stock}}</li>
              </ul>
     
     </div>
+    
+    
+    <script>
+
+            var socket = io.connect('http://localhost:8080');
+
+        </script>
+        
 </body>
 
+
+    <script src="/socket.io/socket.io.js"></script> 
     <script src="/bower_components/jquery/dist/jquery.min.js"></script>
     <script src="/bower_components/angular/angular.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha/js/bootstrap.min.js"></script>
