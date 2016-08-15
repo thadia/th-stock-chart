@@ -6,12 +6,10 @@ myApp.factory('names_list', function($http){
     
 //var socket = io();
 
-myApp.controller('mainController', function($scope, $http, $window,names_list) {
+myApp.controller('mainController', function($scope, $http, $window,names_list,socket) {
         
     names_list.success(function(data) {
        $scope.name_list=data;
-       $scope.name_list_2=data;    
-
        console.log(data + " Data");
        var seriesOptions = [],
            seriesCounter = 0,
@@ -87,7 +85,11 @@ myApp.controller('mainController', function($scope, $http, $window,names_list) {
      * Create the chart when all data is loaded
      * @returns {undefined}
      */
-     
+     var socket = io.connect();
+        socket.on('change', function(obj) {
+             $scope.name_list = obj;
+             $scope.$apply();
+        });
      
      $scope.addStock = function(stock_name){
          
@@ -128,6 +130,7 @@ myApp.controller('mainController', function($scope, $http, $window,names_list) {
                                      
                                     console.log(stock_name + " STOCK ADDED TO CHART");
                                     $scope.getAll();
+                                    //socket.emit('change', $scope.name_list);
                                    
                                    
                                });
@@ -162,6 +165,7 @@ myApp.controller('mainController', function($scope, $http, $window,names_list) {
          $http.get("/stocks/mylist/all/names")
             .then(function (response) {
             $scope.name_list = response.data;
+            socket.emit('change', $scope.name_list);
 
          });
            
@@ -194,7 +198,12 @@ myApp.controller('mainController', function($scope, $http, $window,names_list) {
          });
         $scope.getAll();
         console.log($scope.name_list  +" LOG DELETE " +$scope.name_list);
+
      }    
+     
+     $scope.change = function() {
+        socket.emit('change', $scope.name_list);
+     };
 }); 
 
 

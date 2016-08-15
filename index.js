@@ -9,8 +9,12 @@ app.use('/client', server.static(__dirname + '/client'));
 app.use(require('cookie-parser')());
 app.use(require('body-parser').urlencoded({ extended: true }));
 app.use(require('express-session')({ secret: 'keyboard cat', resave: true, saveUninitialized: true }));
-var http = require('http').Server(app);
-var io = require('socket.io')(http);
+//var http = require('http').Server(app);
+//var io = require('socket.io')(http);
+
+var connect = require('connect'),
+    socketio = require('socket.io');
+    
 var path = require('path');
 var mongoose = require('mongoose');
 var Promise = require('es6-promise').Promise;
@@ -26,6 +30,34 @@ io.sockets.on('connection', function (socket) {
 
 io.sockets.on('add', function (socket) {
     console.log('We are broadcasting a stock add.');
+});
+
+
+        
+
+var port = process.env.PORT || 3000;
+var server = connect(
+  connect.static(__dirname + '/public')
+).listen(port);
+
+var data = [];
+Stock.find({}, '-_id',{},function(err, latest_data) {
+        if (err) return console.error(err);
+        else{
+          //console.log("latest_data " + latest_data);
+         data=latest_data;
+        }
+    });
+
+
+var io = socketio.listen(server);
+io.sockets.on('connection', function(socket) {
+  socket.emit('change', data);
+  socket.on('change', function(obj) {
+    console.log(obj);
+    data = obj;
+    socket.broadcast.emit('change', data);
+  });
 });
 
 var StocksSchema = new Schema({
