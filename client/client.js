@@ -60,7 +60,7 @@ myApp.controller('mainController', function($scope, $http, $window,names_list) {
        var start_date=new Date();
        start_date.setFullYear(start_date.getFullYear() - 1);
     
-        $.getJSON('https://www.quandl.com/api/v3/datasets/WIKI/'+name+'.json?order=asc&column_index=4&collapse=daily&transformation=none&api_key=MMk5vnfEYNykynsDCYXy&start_date='+start_date.toISOString().slice(0, 10), function (data) {
+        $.getJSON('https://www.quandl.com/api/v3/datasets/WIKI/'+name+'.json?order=asc&column_index=4&collapse=daily&transformation=none&api_key=MMk5vnfEYNykynsDCYXy', function (data) {
          console.log(name+ " Reading from database;");   
             for(var j=0;j<data.dataset.data.length;j++){
                 data.dataset.data[j][0]=Date.parse(data.dataset.data[j][0]);
@@ -88,7 +88,6 @@ myApp.controller('mainController', function($scope, $http, $window,names_list) {
      
      $scope.addStock = function(stock_name){
          
-         
          //check if valid code
        $scope.getAll();
        console.log($scope.name_list  +" LOG ADD " +$scope.name_list);
@@ -111,23 +110,22 @@ myApp.controller('mainController', function($scope, $http, $window,names_list) {
                                
                                var start_date=new Date();
                                start_date.setFullYear(start_date.getFullYear() - 1);
-                               var url = 'https://www.quandl.com/api/v3/datasets/WIKI/'+stock_name.toUpperCase()+'.json?order=asc&column_index=4&collapse=daily&transformation=none&api_key=MMk5vnfEYNykynsDCYXy&start_date='+start_date.toISOString().slice(0, 10);
+                               var url = 'https://www.quandl.com/api/v3/datasets/WIKI/'+stock_name.toUpperCase()+'.json?order=asc&column_index=4&collapse=daily&transformation=none&api_key=MMk5vnfEYNykynsDCYXy'
+                               //&start_date='+start_date.toISOString().slice(0, 10);
                                $.getJSON(url, function (data)  {
   
                                     for(var j=0;j<data.dataset.data.length;j++){
                                          data.dataset.data[j][0]=Date.parse(data.dataset.data[j][0]);
                                          }
-                                           
+                                
                                     chart.addSeries({
                                         name: stock_name.toUpperCase(),
                                         data: data.dataset.data
                                     });
-                                     
+                                
                                     console.log(stock_name + " STOCK ADDED TO CHART");
                                     $scope.getAll();
-                                    
-                                   
-                                   
+    
                                });
                             }
                     });
@@ -140,6 +138,7 @@ myApp.controller('mainController', function($scope, $http, $window,names_list) {
 
                         } else {
                             alert("Other non-handled error type");
+                            // console.warn(jqXHR);
                         }
                     });
                     

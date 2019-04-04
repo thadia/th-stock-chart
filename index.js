@@ -27,7 +27,7 @@ io.sockets.on('connection', function (socket) {
     console.log('A client is connected!');
 });
  
-
+*/
 var data = [];
 
 
@@ -40,11 +40,9 @@ io.sockets.on('connection', function(socket) {
   });
 });
 
-*/
-
 var StocksSchema = new Schema({
-    stock_table : { type: String, required: true, trim: true },
-    stock_names: { type: Array, required: false, trim: true}
+    stock_table : { type: String, required: true, trim: true, usePushEach: true },
+    stock_names: { type: Array, required: false, trim: true, usePushEach: true}
 });
 
 var Stock = mongoose.model('Stock',StocksSchema);

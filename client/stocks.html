@@ -23,9 +23,9 @@
                   <button id="addsymbol" class="btn btn-success btn-sm" type="button" ng-click="addStock(s_name)">Add <i class="fa fa-plus"></i></button>
              </div>
              <ul id="tag-cloud">
-             
                  <li class="tag-cloud tag-cloud-info" ng-repeat="stock in name_list" ng-click="removeOne(stock)" ng-cloak>{{stock}}</li>
              </ul>
+             <div class="tag-cloud tag-cloud-danger">Data source is not available after March 2018.</div>
     
     </div>
     
